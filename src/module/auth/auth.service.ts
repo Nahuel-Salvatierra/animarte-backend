@@ -6,11 +6,8 @@ import { User } from "../user/user.entity";
 @Injectable()
 export class AuthService{
   constructor(  @Inject(UserService) 
-  private readonly userService: UserService){
+  private readonly userService: UserService){}
 
-  }
-
-  
   async signUp(createUserDto){
     try {
       const userFound = await this.userService.findByEmail(createUserDto.email)
