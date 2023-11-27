@@ -5,6 +5,7 @@ import { ProductRepository } from './product.repository';
 import { ImageService } from './image.service';
 import { join } from 'path';
 import * as fs from 'fs'
+import { CreateProductDto } from './createProduct.dto';
 
 @Injectable()
 export class ProductService {
@@ -14,10 +15,10 @@ export class ProductService {
     private readonly productRepository: IProductRepository,
     private readonly imageService:ImageService) {}
 
-  async create(createProductDto, image: Express.Multer.File,): Promise<Product> {
+  async create(createProductDto:CreateProductDto, image: Express.Multer.File,): Promise<Product> {
 
     const productFound = await this.productRepository.findByName(
-      createProductDto.name,
+      createProductDto.title,
     );
     if (productFound !== null) {
       throw new HttpException('Product already exist', HttpStatus.CONFLICT);
@@ -26,7 +27,7 @@ export class ProductService {
     const newProduct = new Product();
     newProduct.title = createProductDto.title;
     newProduct.description = createProductDto.description;
-    newProduct.price = createProductDto.price;
+    newProduct.price = Number(createProductDto.price);
     newProduct.image = imageFileName
     try {
       await this.imageService.save(imageFileName, image.buffer)

@@ -3,7 +3,7 @@ import { Base } from "../common/base.entity";
 
 @Entity()
 export class Product extends Base{
-  @Column()
+  @Column({unique:true})
   title:string
 
   @Column()
@@ -12,6 +12,6 @@ export class Product extends Base{
   @Column()
   price:number
 
-  @Column()
+  @Column({unique:true})
   image:string
 }
