@@ -4,6 +4,7 @@ import {
   Get,
   Inject,
   Param,
+  ParseIntPipe,
   Post,
   Req,
   Res,
@@ -44,5 +45,10 @@ export class ProductController {
     @UploadedFile() image: Express.Multer.File,
   ): Promise<Product> {
     return await this.productService.create(createProductDto, image);
+  }
+
+  @Get(':id')
+  async getOne(@Param('id' ) id:string ){
+    return this.productService.getOne(+id)
   }
 }

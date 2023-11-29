@@ -1,6 +1,11 @@
 import { Column, Entity } from 'typeorm';
 import { Base } from '../common/base.entity';
 
+export enum RoleEnum {
+  admin = 'admin',
+  user = 'user',
+}
+
 @Entity()
 export class User extends Base {
   @Column()
@@ -9,7 +14,7 @@ export class User extends Base {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -17,4 +22,7 @@ export class User extends Base {
 
   @Column()
   numberPhone: number;
+
+  @Column({ default: RoleEnum.user })
+  role: RoleEnum;
 }
