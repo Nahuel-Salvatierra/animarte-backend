@@ -60,7 +60,10 @@ export class AuthService {
       );
       if (match) {
         const accessToken = this.getAccessToken(userFound);
-        return { accessToken: accessToken };
+        return {
+          user: { userRole: userFound.role, userId: userFound.id },
+          accessToken: accessToken,
+        };
       }
     }
   }
@@ -87,6 +90,6 @@ export class AuthService {
       expiresIn: 60 * 60 * 24 * 14,
     });
 
-    return accessToken
+    return accessToken;
   }
 }
