@@ -20,7 +20,7 @@ export class User extends Base {
   @Column()
   hash: string;
 
-  @Column()
+  @Column({ nullable: true })
   numberPhone: number;
 
   @Column({ default: RoleEnum.user })

@@ -13,7 +13,6 @@ import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(UserService)
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
@@ -36,6 +35,11 @@ export class AuthService {
         newUser.lastName = createUserDto.lastName;
         newUser.name = createUserDto.name;
         return this.userService.save(newUser);
+      } else {
+        throw new HttpException(
+          `${createUserDto.email} already register`,
+          HttpStatus.CONFLICT,
+        );
       }
     }
   }
