@@ -2,9 +2,7 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IProductRepository } from './product.repository.interface';
 import { Product } from './product.entity';
 import { ProductRepository } from './product.repository';
-import { ImageService } from './image.service';
-import { join } from 'path';
-import * as fs from 'fs'
+import { ImageService } from '../image/image.service';
 import { CreateProductDto } from './dto/createProduct.dto';
 
 @Injectable()
