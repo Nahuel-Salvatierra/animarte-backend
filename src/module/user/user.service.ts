@@ -25,4 +25,8 @@ export class UserService{
     }
     return user;
   }
+
+  async update(updateUserDto):Promise<User>{
+    return await this.userRepository.update(updateUserDto)
+  }
 }
