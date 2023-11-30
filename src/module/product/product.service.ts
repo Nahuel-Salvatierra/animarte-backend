@@ -5,7 +5,7 @@ import { ProductRepository } from './product.repository';
 import { ImageService } from './image.service';
 import { join } from 'path';
 import * as fs from 'fs'
-import { CreateProductDto } from './createProduct.dto';
+import { CreateProductDto } from './dto/createProduct.dto';
 
 @Injectable()
 export class ProductService {

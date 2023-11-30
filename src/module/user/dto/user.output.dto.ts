@@ -1,4 +1,4 @@
-import { RoleEnum, User } from "./user.entity";
+import { RoleEnum, User } from "../user.entity";
 
 export class UserOutputDto{
   name: string;
@@ -11,7 +11,7 @@ export class UserOutputDto{
     this.name = user.name;
     this.lastName = user.lastName;
     this.email = user.email;
-    this.numberPhone = user.numberPhone;
+    this.numberPhone = +user.numberPhone;
     this.role = user.role;
   }
 }
