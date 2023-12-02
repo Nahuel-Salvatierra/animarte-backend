@@ -61,10 +61,18 @@ export class AuthService {
       if (match) {
         const accessToken = this.getAccessToken(userFound);
         return {
-          user: { userRole: userFound.role, userId: userFound.id },
+          user: { userRole: [userFound.role], userId: userFound.id },
           accessToken: accessToken,
         };
+      } else {
+        throw new HttpException(
+          'Error: Please ensure all registration fields are filled correctly.',
+          HttpStatus.UNAUTHORIZED,)
       }
+    } else {
+      throw new HttpException(
+        'Error: Please ensure all registration fields are filled correctly.',
+        HttpStatus.UNAUTHORIZED,)
     }
   }
 
