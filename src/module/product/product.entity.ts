@@ -1,5 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import { Base } from "../common/base.entity";
+import { Category } from "../category/category.entity";
 
 @Entity()
 export class Product extends Base{
@@ -9,9 +10,9 @@ export class Product extends Base{
   @Column()
   description:string
 
-  @Column()
-  price:number
-
   @Column({unique:true})
   image:string
+
+  @ManyToOne(()=>Category, category => category.products)
+  category: Category
 }

@@ -25,7 +25,6 @@ export class ProductService {
     const newProduct = new Product();
     newProduct.title = createProductDto.title;
     newProduct.description = createProductDto.description;
-    newProduct.price = Number(createProductDto.price);
     newProduct.image = imageFileName
     try {
       await this.imageService.save(imageFileName, image.buffer)
