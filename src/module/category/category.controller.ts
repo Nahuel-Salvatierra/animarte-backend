@@ -16,8 +16,8 @@ export class CategoryController{
     return await this.categoryService.getAll()
   }
 
-  @Get('/:id')
-  async getOne(@Param()id :string){
-    return await this.categoryService.getById(+id)
+  @Get('/:name')
+  async getOne(@Param()name :string){
+    return await this.categoryService.getByName(name)
   }
 }

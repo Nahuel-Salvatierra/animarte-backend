@@ -16,7 +16,7 @@ import { Product } from './product.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileFilter } from '../image/image.helper';
 import { join } from 'path';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { CreateProductDto } from './dto/createProduct.dto';
 
 @Controller('/product')

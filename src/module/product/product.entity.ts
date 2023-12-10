@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { Base } from "../common/base.entity";
 import { Category } from "../category/category.entity";
 
@@ -14,5 +14,6 @@ export class Product extends Base{
   image:string
 
   @ManyToOne(()=>Category, category => category.products)
+  @JoinColumn()
   category: Category
 }

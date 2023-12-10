@@ -26,4 +26,8 @@ export class CategoryService {
   async getById(id:number):Promise<Category>{
     return await this.categoryRepository.getById(id)
   }
+
+  async getByName(name:string){
+    return await this.categoryRepository.findByName(name)
+  }
 }
