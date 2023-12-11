@@ -16,8 +16,4 @@ export class ProductDto {
   @IsNotEmpty()
   @IsString()
   description: string;
-
-  @IsString()
-  @IsNotEmpty()
-  price: string;
 }
