@@ -11,7 +11,8 @@ export class CategoryRepository implements ICategoryRepository {
   }
 
   async save(category: Category): Promise<Category> {
-    return await this.repository.save(category);
+    const newCategory = this.repository.create(category);
+    return await this.repository.save(newCategory);
   }
 
   async findByName(name: string): Promise<Category> {
@@ -22,7 +23,7 @@ export class CategoryRepository implements ICategoryRepository {
     return await this.repository.find();
   }
 
-  async getById(id:number): Promise<Category> {
+  async getById(id: number): Promise<Category> {
     return await this.repository.findOne({
       where: { id },
       relations: { products: true },

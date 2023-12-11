@@ -1,17 +1,19 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { ICategoryRepository } from "./category.repository.interface";
-import { error } from "console";
 import { Category } from "./category.entity";
+import { CategoryRepository } from "./category.repository";
+import { CategoryDto } from "./category.dto";
 
 @Injectable()
 export class CategoryService {
   constructor(
+    @Inject(CategoryRepository)
     private readonly categoryRepository:ICategoryRepository
   ){}
 
-  async create(createCategoryDto){
+  async create(createCategoryDto:Category){
     const categoryFound = await this.categoryRepository.findByName(createCategoryDto.name)
-    if (categoryFound) {
+    if (!categoryFound) {
       return await this.categoryRepository.save(createCategoryDto)
     }
     else {
