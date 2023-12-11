@@ -4,7 +4,7 @@ import { Product } from './product.entity';
 import { IProductRepository } from './product.repository.interface';
 
 @Injectable()
-export class ProductRepository implements IProductRepository{
+export class ProductRepository implements IProductRepository {
   repository: Repository<Product>;
   constructor(private readonly dataSource: DataSource) {
     this.repository = this.dataSource.getRepository(Product);
@@ -18,11 +18,11 @@ export class ProductRepository implements IProductRepository{
     return await this.repository.findOne({ where: { id } });
   }
 
-  async save(product:Product):Promise<Product>{
-    return await this.repository.save(product)
+  async save(product: Product): Promise<Product> {
+    return await this.repository.save(product);
   }
 
-  async getAll():Promise<Product[]>{
-    return this.repository.find()
+  async getAll(): Promise<Product[]> {
+    return this.repository.find({ relations: { category: true } });
   }
 }
