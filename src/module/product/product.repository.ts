@@ -26,7 +26,10 @@ export class ProductRepository implements IProductRepository {
     return this.repository.find({ relations: { category: true } });
   }
 
-  async getFilteredProducts(name: string):Promise<Product[]> {
-    return this.repository.find({ where: { category: { name } } });
+  async getFilteredProducts(name: string): Promise<Product[]> {
+    return this.repository.find({
+      where: { category: { name } },
+      relations: { category: true },
+    });
   }
 }
