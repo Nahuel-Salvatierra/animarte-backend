@@ -30,6 +30,7 @@ export class CategoryService {
   }
 
   async getByName(name:string){
+    console.log(name)
     return await this.categoryRepository.findByName(name)
   }
 }
