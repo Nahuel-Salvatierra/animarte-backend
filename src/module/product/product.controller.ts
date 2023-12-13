@@ -48,7 +48,13 @@ export class ProductController {
   }
 
   @Get(':id')
-  async getOne(@Param('id' ) id:string ){
-    return this.productService.getOne(+id)
+  async getOne(@Param('id') id: string) {
+    return await this.productService.getOne(+id);
+  }
+
+  @Get('/category/:name')
+  async getFilteredProducts(@Param('name') name: string) {
+    console.log(name)
+    return await this.productService.getFilteredProducts(name);
   }
 }

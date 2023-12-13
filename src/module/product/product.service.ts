@@ -53,4 +53,9 @@ export class ProductService {
   async getOne(id: number): Promise<Product> {
     return this.productRepository.findById(id);
   }
+
+  async getFilteredProducts(name:string){
+    const products = await this.productRepository.getFilteredProducts(name)
+    return products
+  }
 }
