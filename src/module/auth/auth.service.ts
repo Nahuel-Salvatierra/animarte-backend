@@ -11,13 +11,21 @@ import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { LoginResponse } from './dto/login-response';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class AuthService {
+
+  private readonly ACCESS_TOKEN_SECRET:string
+  private readonly REFRESH_TOKEN_SECRET:string
   constructor(
+    private readonly configService: ConfigService,
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) {
+    this.ACCESS_TOKEN_SECRET = this.configService.get('ACCESS_TOKEN_SECRET')
+    this.REFRESH_TOKEN_SECRET = this.configService.get('REFRESH_TOKEN_SECRET')
+  }
 
   async signUp(createUserDto:CreateUserDto):Promise<User> {
     try {
@@ -87,7 +95,7 @@ export class AuthService {
   private getAccessToken(user: User): string {
     const payload = { id: user.id, email: user.email, role: user.role };
     const options: JwtSignOptions = {
-      secret: 'accessSecret',
+      secret: this.ACCESS_TOKEN_SECRET,
       expiresIn: 60 * 15,
     };
     const accessToken = this.jwtService.sign(payload, options);
@@ -100,9 +108,8 @@ export class AuthService {
       email: user.email,
       role: user.role,
     };
-    const secret = 'secret';
     const accessToken = await this.jwtService.signAsync(payload, {
-      secret: secret,
+      secret: this.REFRESH_TOKEN_SECRET,
       expiresIn: 60 * 60 * 24 * 14,
     });
 
