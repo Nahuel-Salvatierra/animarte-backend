@@ -48,7 +48,6 @@ export class ProductController {
 
   @Get('/category/:name')
   async getFilteredProducts(@Param('name') name: string) {
-    console.log(name)
     return await this.productService.getFilteredProducts(name);
   }
 }
