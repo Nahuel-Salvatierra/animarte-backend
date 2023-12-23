@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ProductService } from './product.service';
-import { ProductController } from './product.controller';
+import { ProductService } from './app/service/product.service';
+import { ProductController } from './interface/product.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Product } from './product.entity';
-import { ProductRepository } from './product.repository';
+import { Product } from './domain/product.entity';
+import { ProductRepository } from './infrastrucure/product.repository';
 import { ImageModule } from '../image/image.module';
 import { CategoryModule } from '../category/category.module';
 

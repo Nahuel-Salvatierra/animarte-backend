@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SharpModule } from 'nestjs-sharp';
-import { ImageService } from './image.service';
+import { ImageService } from './app/service/image.service';
 
 @Module({
   imports: [SharpModule],

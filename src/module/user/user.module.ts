@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { UserRepository } from "./user.repository";
-import { User } from "./user.entity";
+import { UserService } from "./app/service/user.service";
+import { UserRepository } from "./infrastructure/user.repository";
+import { User } from "./domain/user.entity";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserController } from "./user.controller";
+import { UserController } from "./interface/user.controller";
 
 
 @Module({
