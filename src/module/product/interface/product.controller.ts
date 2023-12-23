@@ -2,11 +2,8 @@ import {
   Body,
   Controller,
   Get,
-  Inject,
   Param,
-  ParseIntPipe,
   Post,
-  Req,
   Res,
   UploadedFile,
   UseInterceptors,
@@ -28,11 +25,7 @@ export class ProductController {
     return await this.productService.getAll();
   }
 
-  @Get('/image/:imageName')
-  async getImage(@Param('imageName') imageName: string, @Res() res: Response) {
-    const imagePath = join(__dirname, '..', '..', '..', 'upload', imageName);
-    res.sendFile(imagePath);
-  }
+  //issue
 
   @Post('/create')
   @UseInterceptors(
@@ -40,6 +33,7 @@ export class ProductController {
       fileFilter: fileFilter,
     }),
   )
+
   async create(
     @Body() createProductDto: CreateProductDto,
     @UploadedFile() image: Express.Multer.File,
