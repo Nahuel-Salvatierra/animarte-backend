@@ -1,14 +1,16 @@
 import {
   HttpException,
   HttpStatus,
-  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import * as argon from 'argon2';
 import { UserService } from '../user/user.service';
-import { User } from '../user/user.entity';
+import { RoleEnum, User } from '../user/user.entity';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
+import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
+import { LoginResponse } from './dto/login-response';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +19,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signUp(createUserDto) {
+  async signUp(createUserDto:CreateUserDto):Promise<User> {
     try {
       const userFound = await this.userService.findByEmail(createUserDto.email);
       if (userFound) {
@@ -28,12 +30,7 @@ export class AuthService {
       }
     } catch (error) {
       if (error instanceof NotFoundException) {
-        const hash = await argon.hash(createUserDto.password);
-        const newUser = new User();
-        newUser.email = createUserDto.email;
-        newUser.hash = hash;
-        newUser.lastName = createUserDto.lastName;
-        newUser.name = createUserDto.name;
+        const newUser = await this.createUser(createUserDto)
         return this.userService.save(newUser);
       } else {
         throw new HttpException(
@@ -44,11 +41,22 @@ export class AuthService {
     }
   }
 
+  async createUser(createUserDto:CreateUserDto):Promise<User>{
+    const hash = await argon.hash(createUserDto.password);
+        const newUser = new User();
+        newUser.email = createUserDto.email;
+        newUser.hash = hash;
+        newUser.role = RoleEnum.user
+        newUser.lastName = createUserDto.lastName;
+        newUser.name = createUserDto.name;
+        return newUser
+  }
+
   async verifyMatch(hash: string, password: string) {
     return await argon.verify(hash, password);
   }
 
-  async login(loginUserDto) {
+  async login(loginUserDto:LoginUserDto):Promise<LoginResponse> {
     let userFound: User | null;
     try {
       userFound = await this.userService.findByEmail(loginUserDto.email);
