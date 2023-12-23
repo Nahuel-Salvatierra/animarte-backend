@@ -11,7 +11,7 @@ import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { SignUpDto } from '../dto/sign-up.dto';
 import { LoginDto } from '../dto/login.dto';
 import { LoginResponse } from '../dto/login-response.dto';
-import { ConfigService } from '../../../config/config.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {

@@ -37,6 +37,9 @@ lerna-debug.log*
 # DB
 DATABASE.sqlite
 /upload
+/data
 
 # Envfiles
 .env.development
+.env.automated-tests
+.env
