@@ -8,13 +8,19 @@ import { CategoryModule } from './module/category/category.module';
 import { ConfigModule } from './module/config/config.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'better-sqlite3',
-    database: 'DATABASE.sqlite',
-    entities:[__dirname+ '/**/*.entity{.ts,.js}'],
-    synchronize: true,
-  }),
-  ConfigModule.register(),
-    AuthModule, UserModule, ProductModule, ImageModule, CategoryModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'better-sqlite3',
+      database: 'DATABASE.sqlite',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
+    ConfigModule.register(),
+    AuthModule,
+    UserModule,
+    ProductModule,
+    ImageModule,
+    CategoryModule,
+  ],
 })
 export class AppModule {}
