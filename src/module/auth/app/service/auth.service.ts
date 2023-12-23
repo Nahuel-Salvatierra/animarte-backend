@@ -8,9 +8,9 @@ import * as argon from 'argon2';
 import { UserService } from '../../../user/app/service/user.service';
 import { RoleEnum, User } from '../../../user/domain/user.entity';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { LoginUserDto } from '../dto/login-user.dto';
-import { LoginResponse } from '../dto/login-response';
+import { SignUpDto } from '../dto/sign-up.dto';
+import { LoginDto } from '../dto/login.dto';
+import { LoginResponse } from '../dto/login-response.dto';
 import { ConfigService } from '../../../config/config.service';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class AuthService {
     this.REFRESH_TOKEN_SECRET = this.configService.get('REFRESH_TOKEN_SECRET')
   }
 
-  async signUp(createUserDto:CreateUserDto):Promise<User> {
+  async signUp(createUserDto:SignUpDto):Promise<User> {
     try {
       const userFound = await this.userService.findByEmail(createUserDto.email);
       if (userFound) {
@@ -49,7 +49,7 @@ export class AuthService {
     }
   }
 
-  async createUser(createUserDto:CreateUserDto):Promise<User>{
+  async createUser(createUserDto:SignUpDto):Promise<User>{
     const hash = await argon.hash(createUserDto.password);
         const newUser = new User();
         newUser.email = createUserDto.email;
@@ -64,7 +64,7 @@ export class AuthService {
     return await argon.verify(hash, password);
   }
 
-  async login(loginUserDto:LoginUserDto):Promise<LoginResponse> {
+  async login(loginUserDto:LoginDto):Promise<LoginResponse> {
     let userFound: User | null;
     try {
       userFound = await this.userService.findByEmail(loginUserDto.email);
