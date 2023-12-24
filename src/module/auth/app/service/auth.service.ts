@@ -27,7 +27,7 @@ export class AuthService {
     this.REFRESH_TOKEN_SECRET = this.configService.get('REFRESH_TOKEN_SECRET')
   }
 
-  async signUp(createUserDto:SignUpDto):Promise<User> {
+  async signUp(createUserDto:SignUpDto):Promise<void> {
     try {
       const userFound = await this.userService.findByEmail(createUserDto.email);
       if (userFound) {
@@ -39,7 +39,7 @@ export class AuthService {
     } catch (error) {
       if (error instanceof NotFoundException) {
         const newUser = await this.createUser(createUserDto)
-        return this.userService.save(newUser);
+        this.userService.save(newUser);
       } else {
         throw new HttpException(
           `${createUserDto.email} already register`,
