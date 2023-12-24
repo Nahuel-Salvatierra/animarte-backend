@@ -6,7 +6,7 @@ dotenv.config();
 
 export enum ENVIRONMENTS {
   DEVELOPMENT = 'development',
-  AUTOMATED_TEST = 'automated_tests',
+  AUTOMATED_TEST = 'automated-tests',
 }
 
 

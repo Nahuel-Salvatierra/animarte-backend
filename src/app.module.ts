@@ -6,7 +6,7 @@ import { ProductModule } from './module/product/product.module';
 import { ImageModule } from './module/image/image.module';
 import { CategoryModule } from './module/category/category.module';
 import { ConfigModule } from '@nestjs/config';
-import { dataSourceOptions } from 'ormConfig';
+import { dataSourceOptions } from '../ormConfig';
 
 
 @Module({
