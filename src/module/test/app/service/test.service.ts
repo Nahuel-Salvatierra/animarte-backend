@@ -14,7 +14,7 @@ export class TestService {
   constructor(public dataSource: DataSource) {
     if (process.env.NODE_ENV !== 'automated-tests') {
       console.log(process.env.NODE_ENV);
-      // throw new Error('ERROR-TEST-UTILS-ONLY-FOR-TESTS');
+      throw new Error('ERROR-TEST-UTILS-ONLY-FOR-TESTS');
     }
 
     this.connectionManager = this.dataSource.createEntityManager();
