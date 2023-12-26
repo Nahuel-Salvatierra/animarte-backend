@@ -7,6 +7,7 @@ import { ImageModule } from './module/image/image.module';
 import { CategoryModule } from './module/category/category.module';
 import { ConfigModule } from '@nestjs/config';
 import { dataSourceOptions } from '../ormConfig';
+import { TestModule } from './module/test/test.module';
 
 
 @Module({
@@ -25,6 +26,7 @@ import { dataSourceOptions } from '../ormConfig';
     ProductModule,
     ImageModule,
     CategoryModule,
+    TestModule
   ],
 })
 export class AppModule {}
