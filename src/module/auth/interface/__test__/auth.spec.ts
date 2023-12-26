@@ -5,18 +5,25 @@ import {  HttpStatus, INestApplication } from '@nestjs/common';
 import { AppModule } from '../../../../app.module';
 import { SignUpDto } from '../../../auth/app/dto/sign-up.dto';
 import { LoginDto } from '../../app/dto/login.dto';
+import { TestService } from '../../../../../src/module/test/app/service/test.service';
+import { fixtureTrees } from '../../../../../src/module/test/app/fixture/fixture';
 
 describe('AuthController', () => {
   let app: INestApplication;
+  let testService:TestService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
-
     app = moduleRef.createNestApplication();
+    testService = moduleRef.get<TestService>(TestService);
 
+    const entities = await testService.getEntities()
+    const entitiesWithFixtures = entities.filter((entity) => Object.keys(fixtureTrees).indexOf(entity.name) !== -1);
+    await testService.loadAll(entitiesWithFixtures)
     await app.init();
+
   });
   describe('POST /auth', () => {
     it('Should be register an user (201)', async () => {
